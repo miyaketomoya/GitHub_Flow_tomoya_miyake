@@ -62,14 +62,14 @@ mainが最新版になっているか確認が取れたら `feature/(作りた�
 ```
 git checkout -b feature/add-A　# feature/add-Aというbranchを作って移動するコマンド
 ```
-**作業を行う**
+**作業を行う**<br>
 - この時、こまめにcommitを行う(mainにcommitしなければ絶対影響ない)
 ```
 git add 追加したいファイル
 git commit -m "add-Aを実装するための部品Bを実装"
 ```
 
-**機能が完成したら**
+**機能が完成したら**<br>
 pushしてpull requestを送る
 ```
 git push origin feature/add-A # リポジトリにfeature/add-Aを登録
@@ -79,7 +79,7 @@ githubの該当ページに行って更新すると「create pull request」あ�
 他の人にコードをレビューしてもらったり議論して許可が出たらmergeしてもらう<br>
 ⭐この作業が完了したらそのbranchは終了!! 基本的には使わない
 
-**ローカルの状態を最新にして次の作業を待つ**
+**ローカルの状態を最新にして次の作業を待つ**<br>
 現在、`main`と`feature/add-A`のbranchが存在する
 
 ローカル feature/add-A != main
@@ -98,15 +98,15 @@ git pull origin main # mainにorigin(何もいじらなければGitHubのリポ�
 ```
 これでローカルのmainが最新で保たれている。ここから何か作業があれば、またfeature/add-Bなど新しいbranchを作る
 
-**作業中に他の人によってGithubのmainが更新された時**
+**作業中に他の人によってGithubのmainが更新された時**<br>
 このような状態になっているはずであり、この時、作業しているブランチを最新にする必要がある<br>
 ローカル
-main -> feature/add-Aを作った時の状態
-feature/add-A -> いくつかコードをcommit(push)している状態
+- main -> feature/add-Aを作った時の状態
+- feature/add-A -> いくつかコードをcommit(push)している状態
 
 リモート(Githubのリポジトリ)
-main -> 他の人が更新した最新の状態
-feature/add-A -> (pushしたことあったら存在)最後にpushした時の状態
+- main -> 他の人が更新した最新の状態
+- feature/add-A -> (pushしたことあったら存在)最後にpushした時の状態
 
 手順
 1. mainにcheckoutして`git pull origin main` (githubのmainを引っ張ってくる. これで最新)
@@ -118,12 +118,12 @@ feature/add-A -> (pushしたことあったら存在)最後にpushした時の�
 
 この操作でmainは最新、feature/add-Aは最新の状態から変更を加えているみたいになっている<br>
 ローカル
-main -> githubのリポジトリの最新状態(feature/add-Aで新しく作っているコードは反映されていない)
-feature/add-A -> 最新情報更新した上で、今まで作ってきたコードがある状態
+- main -> githubのリポジトリの最新状態(feature/add-Aで新しく作っているコードは反映されていない)
+- feature/add-A -> 最新情報更新した上で、今まで作ってきたコードがある状態
 
 リモート(Githubのリポジトリ)
-main -> 他の人が更新した最新の状態
-feature/add-A -> meargeした後の状態をpushしてたら、最新情報とそこまでのfeature/add-Aのコードがある状態
+- main -> 他の人が更新した最新の状態
+- feature/add-A -> meargeした後の状態をpushしてたら、最新情報とそこまでのfeature/add-Aのコードがある状態
 
 
 
