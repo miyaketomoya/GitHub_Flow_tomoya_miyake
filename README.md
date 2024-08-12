@@ -45,3 +45,92 @@ pull requestを送ったら、基本的にそのコードは第３者に見て�
 `LGTM(looks good to me)`ってコメントすると、mergeして問題ないです！という文化があるらしい
 
 
+# 作業をする時の通常の流れ
+(デプロイとかはなく、一旦本のdevelopブランチがmainとする) <br>
+
+コマンドで出てくる`origin`はリポジトリのリンクの別名 
+```
+git push origin feature/add-A -> originというリポジトリにローカルのfeature/add-A ブランチをpushする（登録する）ということ
+```
+### 何か新しい機能を実装したい時
+⭐まずmainがGitHubのリポジトリと同じ最新版になっているかを確認(ないと思ってもとりあえずやって損なし)
+```
+git checkout main   #mainのbranchに移動
+git pull origin main #リポジトリからpull(git remoteで対象のリポジトリにつながっているかを確認)
+```
+mainが最新版になっているか確認が取れたら `feature/(作りたい機能の説明)`のブランチを作って移動　例えばadd-Aという機能を追加したかったら
+```
+git checkout -b feature/add-A　# feature/add-Aというbranchを作って移動するコマンド
+```
+**作業を行う**
+- この時、こまめにcommitを行う(mainにcommitしなければ絶対影響ない)
+```
+git add 追加したいファイル
+git commit -m "add-Aを実装するための部品Bを実装"
+```
+
+**機能が完成したら**
+pushしてpull requestを送る
+```
+git push origin feature/add-A # リポジトリにfeature/add-Aを登録
+```
+githubの該当ページに行って更新すると「create pull request」あるはずなのでそれをポチ<br>
+作ったページに詳しい内容を書く<br>
+他の人にコードをレビューしてもらったり議論して許可が出たらmergeしてもらう<br>
+⭐この作業が完了したらそのbranchは終了!! 基本的には使わない
+
+**ローカルの状態を最新にして次の作業を待つ**
+現在、`main`と`feature/add-A`のbranchが存在する
+
+ローカル feature/add-A != main
+- feature/add-A -> ここで作業していたので最新の状態
+- main -> feature/add-Aで作業を行っていたため、feature/add-Aの更新はされてない状態
+
+リモート(GitHubのリポジトリ)　feature/add-A = main
+- feature/add-A -> git push origin feature/add-Aしてローカルの状態が反映されているので最新の状態
+- main -> feature/add-Aのpull requestを承認しているので最新の状態
+
+現在、ローカルのmainだけ最新ではない状態<br>
+これを最新にするためにmainに戻って最新の状態を更新
+```
+git checkout main # mainのbranchに移動
+git pull origin main # mainにorigin(何もいじらなければGitHubのリポジトリのmainへのリンクを指しているはず)の情報を持ってくる
+```
+これでローカルのmainが最新で保たれている。ここから何か作業があれば、またfeature/add-Bなど新しいbranchを作る
+
+**作業中に他の人によってGithubのmainが更新された時**
+このような状態になっているはずであり、この時、作業しているブランチを最新にする必要がある<br>
+ローカル
+main -> feature/add-Aを作った時の状態
+feature/add-A -> いくつかコードをcommit(push)している状態
+
+リモート(Githubのリポジトリ)
+main -> 他の人が更新した最新の状態
+feature/add-A -> (pushしたことあったら存在)最後にpushした時の状態
+
+手順
+1. mainにcheckoutして`git pull origin main` (githubのmainを引っ張ってくる. これで最新)
+2. 作業ブランチに移動 `git checkout feature/add-A`
+3. mainの状態を feature/add-Aに引っ張ってくる(mearge) 'git mearge main'
+
+⭐️基本的に同じコードをいじってるとかでなければmeargeしたら、今までの作業に影響なく更新を持ってくることができるはずなので、ビビらない
+⭐️同じコードをいじっていた時 conflictが発生 -> ガイドをもとに修正(また調べます)
+
+この操作でmainは最新、feature/add-Aは最新の状態から変更を加えているみたいになっている<br>
+ローカル
+main -> githubのリポジトリの最新状態(feature/add-Aで新しく作っているコードは反映されていない)
+feature/add-A -> 最新情報更新した上で、今まで作ってきたコードがある状態
+
+リモート(Githubのリポジトリ)
+main -> 他の人が更新した最新の状態
+feature/add-A -> meargeした後の状態をpushしてたら、最新情報とそこまでのfeature/add-Aのコードがある状態
+
+
+
+
+
+ 
+
+
+
+
