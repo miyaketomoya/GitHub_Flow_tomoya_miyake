@@ -41,3 +41,17 @@ masterからexperimentを結合したものがcommitされてmasterが進む
 残りのserverがmergeできるようになったら<br>
 `git rebase master server` -> `git checkout master` -> `git merge server`で完全な１直線
 (`git rebase master server`は`git rebase --onto master master server`の略)
+
+git rebaseで気をつけること
+- すでにリポジトリにpushしているものはrebaseしない
+- 他人がpushしたものはrebaseしない
+
+ベアリポジトリ
+- .gitディレクトリのみを持つリポジトリ
+- リモートリポジトリはベアリポジトリのみで構成される
+
+### Gitの開発(2人での開発)でbranchがどうなっているかの遷移
+mergeやbranchの挙動を理解してないと難しいかも<br>
+Pro Git p130~p141が参考になる<br>
+
+TODO: -uオプションを調べる<br>
